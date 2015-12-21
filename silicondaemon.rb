@@ -43,7 +43,7 @@ begin
   `dstat 1 0`
   run_stats_loop
 rescue Errno::ENOENT =>  err
-  p "You are missing dstat, please install and try again"
+  raise "You are missing dstat, please install and try again"
 rescue SocketError => err
   if failovers
     host = failovers.pop
