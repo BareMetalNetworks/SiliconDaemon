@@ -8,10 +8,10 @@ require 'connection_pool'
 
 host = ARGV[0] || 'stack0'
 failover1 = ARGV[3] || '10.0.1.75'
-failvoer2 = ARGV[4] || 'stack1'
-failvoer3 = ARGV[5] || 'stack2'
+failover2 = ARGV[4] || 'stack1'
+failover3 = ARGV[5] || 'stack2'
 failover4 = '10.0.1.150'
-failvoer5 = '10.0.1.151'
+failover5 = '10.0.1.151'
 
 db = ARGV[1].to_i || 10
 
