@@ -52,6 +52,8 @@ rescue SocketError => err
   else
     raise "Exhausted redis server failovers, check infrastructure"
   end
+end
+
 
 
 
