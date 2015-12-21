@@ -35,8 +35,9 @@ end
 
 
 begin
+  failovers = [failover1, failover2, failover3, failover4, failover5]
   Redis::Objects.redis = ConnectionPool.new(size: 3, timeout: 5) {
-      Redis.new({host: host, port: '6379', db: db})}
+    Redis.new({host: host, port: '6379', db: db})}
 
   $SHM = Redis::List.new("system:stats:#{$hostname}", :marshal => true)
   `dstat 1 0`
@@ -44,10 +45,13 @@ begin
 rescue Errno::ENOENT =>  err
   p "You are missing dstat (or redis/redis-tools etc) please install and try again"
 rescue SocketError => err
-  host = failover1
-  sleep 15
-  retry
-end
+  if failovers
+    host = failovers.pop
+    sleep 15
+    retry
+  else
+    raise "Exhausted redis server failovers, check infrastructure"
+  end
 
 
 
